@@ -1,0 +1,95 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#037a1d",
+      "activityBar.inactiveForeground": "#cccccc",
+      "activityBar.activeBackground": "#004d17",
+      "activityBar.foreground": "#ffffff",
+      "activityBar.activeBorder": "#00c964",
+      "activityBarBadge.background": "#0a0a1d",
+      "activityBarBadge.foreground": "#e7e7e7",
+    },
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "editor.insertSpaces": true,
+    "jest.jestCommandLine": "npm run test -- "
+  },
+  "extensions": {
+    "recommendations": [
+      "aaron-bond.better-comments",
+      "wmaurer.change-case",
+      "mikestead.dotenv",
+      "usernamehw.errorlens",
+      "christian-kohler.path-intellisense",
+      "pflannery.vscode-versionlens",
+      "vscode-icons-team.vscode-icons",
+      "zainchen.json",
+      "dbaeumer.vscode-eslint",
+      "orta.vscode-jest",
+      "ms-azuretools.vscode-docker"
+    ]
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "Attach",
+        "port": 9229,
+        "request": "attach",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "type": "pwa-node"
+      },
+      {
+        "type": "node",
+        "name": "Jest Unit Tests",
+        "request": "launch",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+        "cwd": "${workspaceFolder}",
+        "args": [
+          "--runInBand",
+          "--watchAll=false"
+        ]
+      },
+      {
+        "type": "node",
+        "name": "Jest E2E Tests",
+        "request": "launch",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+        "cwd": "${workspaceFolder}",
+        "args": [
+          "--runInBand",
+          "--watchAll=false",
+          "--config",
+          "./test/jest-e2e.json"
+        ],
+      },
+      {
+        "type": "node",
+        "name": "vscode-jest-tests",
+        "request": "launch",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+        "cwd": "${workspaceFolder}",
+        "args": [
+          "--runInBand",
+          "--watchAll=false"
+        ]
+      },
+    ]
+  }
+}

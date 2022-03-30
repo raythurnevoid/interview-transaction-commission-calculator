@@ -1,0 +1,35 @@
+version: '3'
+services:
+  node:
+    container_name: transaction-commission-calculator-nestjs
+    image: monkeythedev/interview-transaction-commission-calculator-nestjs
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+    env_file:
+      - ./docker.env
+    networks:
+      - mongodb_network
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:5.0.6
+    ports:
+      - 27017:27017
+    volumes:
+      - ./init-mongodb:/docker-entrypoint-initdb.d
+      - ./db-dump:/db-dump
+      - ./data:/data/db
+    networks:
+      - mongodb_network
+volumes:
+  mongodb:
+networks:
+  mongodb_network:
+    name: mongodb_network
