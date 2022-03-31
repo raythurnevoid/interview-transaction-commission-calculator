@@ -13,7 +13,7 @@ export class CommissionsOverrideRulesService {
     private commissionOverrideRuleModel: Model<CommissionOverrideRuleDocument>,
   ) {}
 
-  async create(
+  async createCommissionOverrideRule(
     commissionOverrideRule: CommissionOverrideRule,
   ): Promise<CommissionOverrideRule> {
     const createdCommissionOverrideRule =
@@ -31,7 +31,7 @@ export class CommissionsOverrideRulesService {
     return createdCommissionOverrideRule;
   }
 
-  async delete(
+  async deleteCommissionOverrideRule(
     commissionOverrideRule: Pick<CommissionOverrideRule, 'clientId'>,
   ): Promise<void> {
     await this.commissionOverrideRuleModel.findOneAndRemove({
@@ -39,11 +39,13 @@ export class CommissionsOverrideRulesService {
     });
   }
 
-  async findAll(): Promise<CommissionOverrideRule[]> {
+  async findAllCommissionOverrideRules(): Promise<CommissionOverrideRule[]> {
     return await this.commissionOverrideRuleModel.find();
   }
 
-  async findByClientId(clientId: number): Promise<CommissionOverrideRule> {
+  async findCommissionOverrideRuleByClientId(
+    clientId: number,
+  ): Promise<CommissionOverrideRule> {
     return await this.commissionOverrideRuleModel.findOne({
       clientId,
     });

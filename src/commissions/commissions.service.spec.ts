@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CommissionsController } from './commissions.controller';
 import { CommissionsService } from './commissions.service';
 import { Transaction } from '../transactions/entities/transaction.entity';
-import { CommissionsCalculatorConfigsService } from '../commissions-calculator-configs/commissions-override-rules.service';
+import { CommissionsCalculatorConfigsService } from '../commissions-calculator-configs/commissions-calculator-configs.service';
 import { TransactionsService } from '../transactions/transactions.service';
 import { CommissionsOverrideRulesService } from '../commissions-override-rules/commissions-override-rules.service';
 import { CommissionsCalculatorConfigs } from '../commissions-calculator-configs/schemas/commissions-calculator-configs.schema';
@@ -89,28 +89,28 @@ describe('CommissionsService', () => {
         amount: 100,
         currency: 'EUR',
         expected: 0.05,
-        date: new Date(2021, 0, 1),
+        date: new Date('2021-01-01'),
         clientId: 1,
       },
       {
         amount: 90,
         currency: 'EUR',
         expected: 0.05,
-        date: new Date(2021, 0, 1),
+        date: new Date('2021-01-01'),
         clientId: 1,
       },
       {
         amount: 200.4,
         currency: 'EUR',
         expected: 0.1,
-        date: new Date(2021, 0, 1),
+        date: new Date('2021-01-01'),
         clientId: 1,
       },
       {
         amount: 200,
         currency: 'USD',
         expected: 0.08,
-        date: new Date(2021, 0, 1),
+        date: new Date('2021-01-01'),
         clientId: 1,
       },
     ])(

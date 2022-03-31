@@ -1,9 +1,9 @@
 import { transformTransactionAmountToString } from '../logic/transactions.logic';
-import { SetCommissionOverrideRuleDto } from './dto/set-commissions-override-rule.dto';
+import { CommissionOverrideRuleDto } from './dto/commissions-override-rule.dto';
 import { CommissionOverrideRule } from './entities/commissions-override-rule.entity';
 
 export function fromCreateCommissionOverrideRuleDtoToCommissionOverrideRuleEntity(
-  value: Partial<SetCommissionOverrideRuleDto>,
+  value: Partial<CommissionOverrideRuleDto>,
 ): CommissionOverrideRule {
   const result = new CommissionOverrideRule({
     fixedCommission: parseFloat(value.fixed_commission),
@@ -16,8 +16,8 @@ export function fromCreateCommissionOverrideRuleDtoToCommissionOverrideRuleEntit
 
 export function fromCommissionOverrideRuleEntityToCommissionOverrideRuleDto(
   value: CommissionOverrideRule,
-): SetCommissionOverrideRuleDto {
-  const result = new SetCommissionOverrideRuleDto({
+): CommissionOverrideRuleDto {
+  const result = new CommissionOverrideRuleDto({
     fixed_commission: transformTransactionAmountToString(value.fixedCommission),
     currency: value.currency,
     client_id: value.clientId,

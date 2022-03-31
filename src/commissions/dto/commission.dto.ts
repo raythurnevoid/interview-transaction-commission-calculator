@@ -1,10 +1,10 @@
-import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
+import { TransactionDto } from '../../transactions/dto/transaction.dto';
 
 export class CommissionDto {
-  amount: CreateTransactionDto['amount'];
-  currency: CreateTransactionDto['currency'];
+  amount: TransactionDto['amount'];
+  currency: TransactionDto['currency'];
 
-  constructor(obj: Partial<CreateTransactionDto> = {}) {
+  constructor(obj: Partial<TransactionDto> = {}) {
     Object.assign(this, obj);
   }
 }

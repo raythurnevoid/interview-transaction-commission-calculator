@@ -2,11 +2,11 @@ import {
   transformDateToString,
   transformTransactionAmountToString,
 } from '../logic/transactions.logic';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { TransactionDto } from './dto/transaction.dto';
 import { Transaction } from './entities/transaction.entity';
 
-export function fromCreateTransactionDtoToTransactionEntity(
-  value: CreateTransactionDto,
+export function fromTransactionDtoToTransactionEntity(
+  value: TransactionDto,
 ): Transaction {
   const result = new Transaction({
     date: new Date(value.date),
@@ -20,8 +20,8 @@ export function fromCreateTransactionDtoToTransactionEntity(
 
 export function fromTransactionEntityToTransactionDto(
   value: Transaction,
-): CreateTransactionDto {
-  const result = new CreateTransactionDto({
+): TransactionDto {
+  const result = new TransactionDto({
     date: transformDateToString(value.date),
     amount: transformTransactionAmountToString(value.amount),
     currency: value.currency,

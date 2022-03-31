@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   ClassSerializerInterceptor,
-  HttpCode,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -16,8 +15,8 @@ import {
   fromCommissionOverrideRuleEntityToCommissionOverrideRuleDto,
   fromCreateCommissionOverrideRuleDtoToCommissionOverrideRuleEntity,
 } from './commissions-override-rules.transformers';
+import { CommissionOverrideRuleDto } from './dto/commissions-override-rule.dto';
 import { DeleteCommissionOverrideRuleDto } from './dto/delete-commissions-override-rule.dto';
-import { SetCommissionOverrideRuleDto } from './dto/set-commissions-override-rule.dto';
 
 @Controller('commissions-override-rules')
 export class CommissionOverrideRulesController {
@@ -33,13 +32,13 @@ export class CommissionOverrideRulesController {
   )
   @UseInterceptors(ClassSerializerInterceptor)
   async setCommissionsOverrideRule(
-    @Body() payloadDto: SetCommissionOverrideRuleDto,
+    @Body() payloadDto: CommissionOverrideRuleDto,
   ): Promise<void> {
     const payload =
       fromCreateCommissionOverrideRuleDtoToCommissionOverrideRuleEntity(
         payloadDto,
       );
-    this.commissionOverrideRulesService.create(payload);
+    this.commissionOverrideRulesService.createCommissionOverrideRule(payload);
   }
 
   @Delete()
@@ -55,21 +54,23 @@ export class CommissionOverrideRulesController {
       fromCreateCommissionOverrideRuleDtoToCommissionOverrideRuleEntity(
         payloadDto,
       );
-    this.commissionOverrideRulesService.delete(payload);
+    this.commissionOverrideRulesService.deleteCommissionOverrideRule(payload);
   }
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  async find(@Query('client_id') client_id: string) {
+  async findCommissionsOverrideRule(@Query('client_id') client_id?: string) {
     if (client_id) {
-      const response = await this.commissionOverrideRulesService.findByClientId(
-        +client_id,
-      );
+      const response =
+        await this.commissionOverrideRulesService.findCommissionOverrideRuleByClientId(
+          +client_id,
+        );
       const responseDto =
         fromCommissionOverrideRuleEntityToCommissionOverrideRuleDto(response);
       return responseDto;
     } else {
-      const responses = await this.commissionOverrideRulesService.findAll();
+      const responses =
+        await this.commissionOverrideRulesService.findAllCommissionOverrideRules();
       const responseDtos = responses.map((response) =>
         fromCommissionOverrideRuleEntityToCommissionOverrideRuleDto(response),
       );

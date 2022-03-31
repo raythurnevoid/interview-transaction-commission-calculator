@@ -18,7 +18,14 @@
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "typescript.preferences.importModuleSpecifier": "relative",
     "editor.insertSpaces": true,
-    "jest.jestCommandLine": "npm run test -- "
+    "jest.jestCommandLine": "npm run test -- ",
+    "jest.autoRun": {
+      "watch": false,
+      "onStartup": [
+        "all-tests"
+      ],
+      "onSave": "test-file",
+    }
   },
   "extensions": {
     "recommendations": [

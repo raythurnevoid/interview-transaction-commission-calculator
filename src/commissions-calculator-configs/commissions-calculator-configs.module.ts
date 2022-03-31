@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CommissionsCalculatorConfigsService } from './commissions-override-rules.service';
+import { CommissionsCalculatorConfigsService } from './commissions-calculator-configs.service';
 import { CommissionsCalculatorConfigsController } from './commissions-calculator-configs.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import {

@@ -1,7 +1,7 @@
 import { PickType } from '@nestjs/mapped-types';
-import { SetCommissionOverrideRuleDto } from './set-commissions-override-rule.dto';
+import { CommissionOverrideRuleDto } from './commissions-override-rule.dto';
 
 export class DeleteCommissionOverrideRuleDto extends PickType(
-  SetCommissionOverrideRuleDto,
+  CommissionOverrideRuleDto,
   ['client_id'] as const,
 ) {}

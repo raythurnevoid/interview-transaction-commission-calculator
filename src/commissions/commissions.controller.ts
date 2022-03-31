@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { CommissionDto } from './dto/commission.dto';
 import { CommissionsService } from './commissions.service';
-import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
-import { fromCreateTransactionDtoToTransactionEntity } from '../transactions/transactions.transformers';
+import { TransactionDto } from '../transactions/dto/transaction.dto';
+import { fromTransactionDtoToTransactionEntity } from '../transactions/transactions.transformers';
 import { fromCommissionEntityToCommissionResponseDto } from './commissions.transformers';
 
 @Controller('commission')
@@ -27,9 +27,9 @@ export class CommissionsController {
   )
   @UseInterceptors(ClassSerializerInterceptor)
   async getCommission(
-    @Body() payloadDto: CreateTransactionDto,
+    @Body() payloadDto: TransactionDto,
   ): Promise<CommissionDto> {
-    const payload = fromCreateTransactionDtoToTransactionEntity(payloadDto);
+    const payload = fromTransactionDtoToTransactionEntity(payloadDto);
     const response = await this.commissionsService.getCommission(payload);
     const responseDto = fromCommissionEntityToCommissionResponseDto(response);
     return responseDto;

@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TransactionsModule } from './transactions/transactions.module';
 import { CommissionsModule } from './commissions/commissions.module';
 import { CommissionOverrideRulesModule } from './commissions-override-rules/commissions-override-rules.module';
-import { CommissionsCalculatorConfigsModule } from './commissions-calculator-configs/commissions-override-rules.module';
+import { CommissionsCalculatorConfigsModule } from './commissions-calculator-configs/commissions-calculator-configs.module';
 import { COMMISSIONS_CALCULATOR_MONGO_CONNECTION_NAME } from './constants';
 
 @Module({

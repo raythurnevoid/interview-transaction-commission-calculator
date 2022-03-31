@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { CommissionsCalculatorConfigsService } from '../commissions-calculator-configs/commissions-override-rules.service';
+import { CommissionsCalculatorConfigsService } from '../commissions-calculator-configs/commissions-calculator-configs.service';
 import { CommissionsOverrideRulesService } from '../commissions-override-rules/commissions-override-rules.service';
 import { Transaction } from '../transactions/entities/transaction.entity';
 import { TransactionsService } from '../transactions/transactions.service';
@@ -48,7 +48,9 @@ export class CommissionsService {
     let commission: number;
 
     const commissionOverrideRule =
-      await this.commissionsOverrideRulesService.findByClientId(input.clientId);
+      await this.commissionsOverrideRulesService.findCommissionOverrideRuleByClientId(
+        input.clientId,
+      );
 
     let totalMonthAmount = 0;
     if (configs.discountTurnoverMonths) {
@@ -58,9 +60,11 @@ export class CommissionsService {
             await this.transactionsService.getAmountByClientIdAndMonth({
               clientId: input.clientId,
               date: new Date(
-                input.date.getFullYear(),
-                input.date.getMonth() - monthAgo,
-                input.date.getDate(),
+                Date.UTC(
+                  input.date.getFullYear(),
+                  input.date.getMonth() - monthAgo,
+                  input.date.getDate(),
+                ),
               ),
             }),
         ),

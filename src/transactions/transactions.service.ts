@@ -11,29 +11,33 @@ export class TransactionsService {
     private transactionModel: Model<TransactionDocument>,
   ) {}
 
-  async create(transaction: Commission): Promise<Transaction> {
+  async createTransaction(transaction: Commission): Promise<Transaction> {
     const createdTransaction = new this.transactionModel(transaction);
     return createdTransaction.save();
   }
 
-  async findAll(): Promise<Transaction[]> {
-    return this.transactionModel.find().exec();
+  async findAllTransactions(): Promise<Transaction[]> {
+    return await this.transactionModel.find();
   }
 
-  async findByClientId(clientId: number) {
-    return this.transactionModel
-      .find({
-        clientId,
-      })
-      .exec();
+  async findTransactionsByClientId(clientId: number) {
+    return await this.transactionModel.find({
+      clientId,
+    });
   }
 
-  async getAmountByClientIdAndMonth(
-    input: Pick<Transaction, 'clientId' | 'date'>,
-  ) {
+  async getAmountByClientIdAndMonth(input: GetAmountByClientIdAndMonthInput) {
     const result = await this.transactionModel.aggregate<{
       amount: number;
-    }>([
+    }>(this.getAmountByClientIdAndMonthAggregation(input) as any);
+
+    return result[0]?.amount;
+  }
+
+  getAmountByClientIdAndMonthAggregation(
+    input: GetAmountByClientIdAndMonthInput,
+  ) {
+    return [
       {
         $match: {
           clientId: input.clientId,
@@ -66,8 +70,8 @@ export class TransactionsService {
           amount: 1,
         },
       },
-    ]);
-
-    return result[0]?.amount;
+    ] as const;
   }
 }
+
+type GetAmountByClientIdAndMonthInput = Pick<Transaction, 'clientId' | 'date'>;

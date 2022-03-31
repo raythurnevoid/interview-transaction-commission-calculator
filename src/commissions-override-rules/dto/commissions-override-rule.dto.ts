@@ -1,3 +1,34 @@
-import { SetCommissionOverrideRuleDto } from './set-commissions-override-rule.dto';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsString,
+  Matches,
+} from 'class-validator';
 
-export class CommissionOverrideRuleDto extends SetCommissionOverrideRuleDto {}
+export class CommissionOverrideRuleDto {
+  /**
+   * @example "EUR"
+   * @example "USD"
+   **/
+  @IsString()
+  @IsNotEmpty()
+  currency: string;
+
+  /**
+   * 0.00 format
+   * @example "100.00"
+   * @example "200.40"
+   **/
+  @IsNumberString()
+  @IsNotEmpty()
+  @Matches(/^\d{1,}(\.\d{1,2})?$/)
+  fixed_commission: `${string}.${string}`;
+
+  @IsNumber()
+  client_id: number;
+
+  constructor(obj: Partial<CommissionOverrideRuleDto> = {}) {
+    Object.assign(this, obj);
+  }
+}

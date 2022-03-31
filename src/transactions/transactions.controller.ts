@@ -11,10 +11,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { TransactionDto } from './dto/transaction.dto';
 import { CommissionDto } from '../commissions/dto/commission.dto';
 import {
-  fromCreateTransactionDtoToTransactionEntity,
+  fromTransactionDtoToTransactionEntity,
   fromTransactionEntityToTransactionDto,
 } from './transactions.transformers';
 import { CommissionsService } from '../commissions/commissions.service';
@@ -35,35 +35,36 @@ export class TransactionsController {
     }),
   )
   @UseInterceptors(ClassSerializerInterceptor)
-  async create(
-    @Body() payloadDto: CreateTransactionDto,
+  async createTransaction(
+    @Body() payloadDto: TransactionDto,
   ): Promise<CommissionDto> {
-    const payload = fromCreateTransactionDtoToTransactionEntity(payloadDto);
-    this.transactionsService.create(payload);
-    const response = await this.commissionsService.getCommission(payload);
+    const payload = fromTransactionDtoToTransactionEntity(payloadDto);
+    const transaction = await this.transactionsService.createTransaction(
+      payload,
+    );
+    const response = await this.commissionsService.getCommission(transaction);
     const responseDto = fromCommissionEntityToCommissionResponseDto(response);
     return responseDto;
   }
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  async findAll(): Promise<CommissionDto[]> {
-    const responses = await this.transactionsService.findAll();
-    const responseDtos = responses.map((response) =>
-      fromTransactionEntityToTransactionDto(response),
-    );
-    return responseDtos;
-  }
-
-  @Get(':id')
-  @UseInterceptors(ClassSerializerInterceptor)
-  async findByClientId(
-    @Query('client_id') client_id: string,
+  async findTransactions(
+    @Query('client_id') client_id?: string,
   ): Promise<CommissionDto[]> {
-    const responses = await this.transactionsService.findByClientId(+client_id);
-    const responseDtos = responses.map((response) =>
-      fromTransactionEntityToTransactionDto(response),
-    );
-    return responseDtos;
+    if (client_id) {
+      const responses =
+        await this.transactionsService.findTransactionsByClientId(+client_id);
+      const responseDtos = responses.map((response) =>
+        fromTransactionEntityToTransactionDto(response),
+      );
+      return responseDtos;
+    } else {
+      const responses = await this.transactionsService.findAllTransactions();
+      const responseDtos = responses.map((response) =>
+        fromTransactionEntityToTransactionDto(response),
+      );
+      return responseDtos;
+    }
   }
 }

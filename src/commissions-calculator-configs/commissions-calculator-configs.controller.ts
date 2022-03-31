@@ -8,11 +8,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CommissionsCalculatorConfigsService } from './commissions-override-rules.service';
+import { CommissionsCalculatorConfigsService } from './commissions-calculator-configs.service';
 import {
   fromCommissionsCalculatorConfigsEntityToCommissionsCalculatorConfigsDto,
   fromCommissionsCalculatorConfigsDtoToCommissionsCalculatorConfigsEntity,
-} from './commissions-override-rules.transformers';
+} from './commissions-calculator-configs.transformers';
 import { CommissionsCalculatorConfigsDto } from './dto/commissions-calculator-configs.dto';
 
 @Controller('configs')
@@ -28,7 +28,7 @@ export class CommissionsCalculatorConfigsController {
     }),
   )
   @UseInterceptors(ClassSerializerInterceptor)
-  async setCommissionsOverrideRule(
+  async setConfigs(
     @Body() payloadDto: CommissionsCalculatorConfigsDto,
   ): Promise<void> {
     const payload =
