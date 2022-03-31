@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { TransactionDocument, Transaction } from './schemas/transaction.schema';
-import { Commission } from '../commissions/entities/commission.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -11,9 +10,9 @@ export class TransactionsService {
     private transactionModel: Model<TransactionDocument>,
   ) {}
 
-  async createTransaction(transaction: Commission): Promise<Transaction> {
-    const createdTransaction = new this.transactionModel(transaction);
-    return createdTransaction.save();
+  async createTransaction(transaction: Transaction): Promise<Transaction> {
+    await new this.transactionModel(transaction).save();
+    return transaction;
   }
 
   async findAllTransactions(): Promise<Transaction[]> {
@@ -31,7 +30,7 @@ export class TransactionsService {
       amount: number;
     }>(this.getAmountByClientIdAndMonthAggregation(input) as any);
 
-    return result[0]?.amount;
+    return result[0]?.amount ?? 0;
   }
 
   getAmountByClientIdAndMonthAggregation(

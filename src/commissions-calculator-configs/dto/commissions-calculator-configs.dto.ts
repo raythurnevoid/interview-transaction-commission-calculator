@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsNumberString,
   IsString,
+  Max,
   Min,
 } from 'class-validator';
 import { TransactionDto } from '../../transactions/dto/transaction.dto';
@@ -19,6 +20,7 @@ export class CommissionsCalculatorConfigsDto {
 
   @IsNumber()
   @Min(0)
+  @Max(1)
   @IsNotEmpty()
   commission_percentage: number;
 
@@ -27,6 +29,10 @@ export class CommissionsCalculatorConfigsDto {
   @IsInt()
   @IsNotEmpty()
   discount_turnover_months: number;
+
+  @IsNumberString()
+  @IsNotEmpty()
+  discount_turnover_amount: TransactionDto['amount'];
 
   /**
    * Base currency of the commissions calculator.

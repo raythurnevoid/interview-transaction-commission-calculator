@@ -97,7 +97,11 @@ describe('TransactionsService', () => {
       expect(TransactionModel).toHaveBeenCalledWith(input);
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith();
-      expect(result).toEqual({});
+      expect(result).toEqual({
+        clientId: 1,
+        amount: 0.05,
+        date: new Date(Date.UTC(2021, 0, 1)),
+      });
     });
   });
 

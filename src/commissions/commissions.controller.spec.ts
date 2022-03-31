@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommissionsController } from './commissions.controller';
 import { CommissionsService } from './commissions.service';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { Commission } from './entities/commission.entity';
 
 describe('CommissionsController', () => {
   let controller: CommissionsController;

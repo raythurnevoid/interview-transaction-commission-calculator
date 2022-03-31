@@ -14,6 +14,7 @@ describe('fromCommissionsCalculatorConfigsDtoToCommissionsCalculatorConfigsEntit
         discount_commission: '0.00',
         discount_turnover_months: 1,
         minimum_commission: '0.03',
+        discount_turnover_amount: '1000.00',
       }),
     ).toEqual(
       new CommissionsCalculatorConfigs({
@@ -21,6 +22,7 @@ describe('fromCommissionsCalculatorConfigsDtoToCommissionsCalculatorConfigsEntit
         currency: 'USD',
         discountCommission: 0,
         discountTurnoverMonths: 1,
+        discountTurnoverAmount: 1000,
         minimumCommission: 0.03,
       }),
     );
@@ -35,6 +37,7 @@ describe('fromCommissionsCalculatorConfigsEntityToCommissionsCalculatorConfigsDt
         currency: 'USD',
         discountCommission: 0,
         discountTurnoverMonths: 1,
+        discountTurnoverAmount: 1000,
         minimumCommission: 0.03,
       }),
     ).toStrictEqual(
@@ -44,6 +47,7 @@ describe('fromCommissionsCalculatorConfigsEntityToCommissionsCalculatorConfigsDt
         discount_commission: '0.00',
         discount_turnover_months: 1,
         minimum_commission: '0.03',
+        discount_turnover_amount: '1000.00',
       }),
     );
   });

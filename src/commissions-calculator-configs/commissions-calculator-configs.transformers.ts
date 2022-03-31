@@ -8,6 +8,7 @@ export function fromCommissionsCalculatorConfigsDtoToCommissionsCalculatorConfig
   const result = new CommissionsCalculatorConfigs({
     minimumCommission: parseFloat(value.minimum_commission),
     discountCommission: parseFloat(value.discount_commission),
+    discountTurnoverAmount: parseFloat(value.discount_turnover_amount),
     discountTurnoverMonths: Math.round(value.discount_turnover_months),
     commissionPercentage: value.commission_percentage,
     currency: value.currency,
@@ -25,6 +26,9 @@ export function fromCommissionsCalculatorConfigsEntityToCommissionsCalculatorCon
     ),
     discount_commission: transformTransactionAmountToString(
       value.discountCommission,
+    ),
+    discount_turnover_amount: transformTransactionAmountToString(
+      value.discountTurnoverAmount,
     ),
     discount_turnover_months: value.discountTurnoverMonths,
     commission_percentage: value.commissionPercentage,

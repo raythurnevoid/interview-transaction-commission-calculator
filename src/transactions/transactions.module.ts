@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { TransactionsController } from './transactions.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -17,7 +17,7 @@ import { COMMISSIONS_CALCULATOR_MONGO_CONNECTION_NAME } from '../constants';
       ],
       COMMISSIONS_CALCULATOR_MONGO_CONNECTION_NAME,
     ),
-    CommissionsModule,
+    forwardRef(() => CommissionsModule),
   ],
   controllers: [TransactionsController],
   providers: [TransactionsService],

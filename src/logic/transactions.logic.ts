@@ -5,6 +5,7 @@ export function getTransactionAmountFormatter() {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
     style: 'decimal',
+    useGrouping: false,
   });
 
   return formatter;

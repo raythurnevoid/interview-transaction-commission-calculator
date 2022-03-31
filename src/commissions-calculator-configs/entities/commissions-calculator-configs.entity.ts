@@ -8,6 +8,7 @@ export class CommissionsCalculatorConfigs {
   minimumCommission: number;
   discountCommission: number;
   discountTurnoverMonths: number;
+  discountTurnoverAmount: number;
   commissionPercentage: number;
 
   constructor(obj: Partial<CommissionsCalculatorConfigs> = {}) {

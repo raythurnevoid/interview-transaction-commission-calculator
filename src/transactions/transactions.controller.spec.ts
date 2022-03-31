@@ -16,10 +16,7 @@ describe('TransactionsController', () => {
     .spyOn(transactionsTransformers, 'fromTransactionEntityToTransactionDto')
     .mockImplementation(jest.fn().mockReturnValue({}));
   jest
-    .spyOn(
-      commissionsTransformers,
-      'fromCommissionEntityToCommissionResponseDto',
-    )
+    .spyOn(commissionsTransformers, 'fromCommissionEntityToCommissionDto')
     .mockImplementation(jest.fn().mockReturnValue({}));
 
   afterEach(async () => {
@@ -67,7 +64,7 @@ describe('TransactionsController', () => {
       expect(transactionsService.createTransaction).toHaveBeenCalledTimes(1);
       expect(commissionsService.getCommission).toHaveBeenCalledTimes(1);
       expect(
-        commissionsTransformers.fromCommissionEntityToCommissionResponseDto,
+        commissionsTransformers.fromCommissionEntityToCommissionDto,
       ).toHaveBeenCalledTimes(1);
     });
   });

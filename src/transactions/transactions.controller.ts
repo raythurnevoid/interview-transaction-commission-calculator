@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   ClassSerializerInterceptor,
-  HttpCode,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -18,7 +17,7 @@ import {
   fromTransactionEntityToTransactionDto,
 } from './transactions.transformers';
 import { CommissionsService } from '../commissions/commissions.service';
-import { fromCommissionEntityToCommissionResponseDto } from '../commissions/commissions.transformers';
+import { fromCommissionEntityToCommissionDto } from '../commissions/commissions.transformers';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -28,7 +27,6 @@ export class TransactionsController {
   ) {}
 
   @Post()
-  @HttpCode(200)
   @UsePipes(
     new ValidationPipe({
       transform: true,
@@ -39,11 +37,9 @@ export class TransactionsController {
     @Body() payloadDto: TransactionDto,
   ): Promise<CommissionDto> {
     const payload = fromTransactionDtoToTransactionEntity(payloadDto);
-    const transaction = await this.transactionsService.createTransaction(
-      payload,
-    );
-    const response = await this.commissionsService.getCommission(transaction);
-    const responseDto = fromCommissionEntityToCommissionResponseDto(response);
+    const response = await this.commissionsService.getCommission(payload);
+    await this.transactionsService.createTransaction(payload);
+    const responseDto = fromCommissionEntityToCommissionDto(response);
     return responseDto;
   }
 

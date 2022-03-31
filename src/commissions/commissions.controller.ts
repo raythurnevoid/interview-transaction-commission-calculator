@@ -12,7 +12,7 @@ import { CommissionDto } from './dto/commission.dto';
 import { CommissionsService } from './commissions.service';
 import { TransactionDto } from '../transactions/dto/transaction.dto';
 import { fromTransactionDtoToTransactionEntity } from '../transactions/transactions.transformers';
-import { fromCommissionEntityToCommissionResponseDto } from './commissions.transformers';
+import { fromCommissionEntityToCommissionDto } from './commissions.transformers';
 
 @Controller('commission')
 export class CommissionsController {
@@ -31,7 +31,7 @@ export class CommissionsController {
   ): Promise<CommissionDto> {
     const payload = fromTransactionDtoToTransactionEntity(payloadDto);
     const response = await this.commissionsService.getCommission(payload);
-    const responseDto = fromCommissionEntityToCommissionResponseDto(response);
+    const responseDto = fromCommissionEntityToCommissionDto(response);
     return responseDto;
   }
 }

@@ -26,6 +26,11 @@ export class CommissionsCalculatorConfigs {
   @Prop({
     type: Number,
   })
+  discountTurnoverAmount: CommissionsCalculatorConfigsEntity['discountTurnoverAmount'];
+
+  @Prop({
+    type: Number,
+  })
   commissionPercentage: CommissionsCalculatorConfigsEntity['commissionPercentage'];
 
   @Prop({
